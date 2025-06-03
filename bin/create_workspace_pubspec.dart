@@ -6,6 +6,8 @@ import 'package:pub/src/system_cache.dart';
 import 'package:pub/src/package_name.dart';
 import 'package:pub/src/language_version.dart';
 import 'package:path/path.dart' as path;
+import 'package:pub/src/source/path.dart'; 
+import 'package:pub/src/source.dart';
 
 void main() {
   if (File('pubspec.yaml').existsSync()) {
@@ -32,11 +34,19 @@ void main() {
             Pubspec.parse(
               f.readAsStringSync(),
               SystemCache().sources,
-              containingDescription: f.path,
+              containingDescription: ResolvedDescription(
+                description: PathDescription(
+                  path: path.absolute(path.dirname(f.path)),
+                  relative: false,
+                ),
+                containingDir: path.absolute(path.dirname(f.path)),
+              ),
               location: f.uri,
             )
           ))
       .toList();
+
+  
 
   final devDependencies = parsedPubspecs
       .expand((pubspec) => pubspec.$2.devDependencies.entries)
