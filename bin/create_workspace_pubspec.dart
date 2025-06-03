@@ -25,13 +25,14 @@ void main() {
   if (pubspecs.isEmpty) {
     fail('❌ Found no pubspec.yaml files in child directories.');
   }
-
+    
   final parsedPubspecs = pubspecs
       .map((f) => (
             f.path,
             Pubspec.parse(
               f.readAsStringSync(),
               SystemCache().sources,
+              containingDescription: f.path,
               location: f.uri,
             )
           ))
