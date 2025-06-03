@@ -6,5 +6,5 @@ dependencies:
   pub:
     git:
       url: https://github.com/dart-lang/pub
-      ref: c0dd3f5f809720d0bc00de10d6d2c01e90fa4700
+      ref: 818f10b4bf9249bd0b2c212dd8709675eeb14cd2
   path:
