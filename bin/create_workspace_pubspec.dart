@@ -43,13 +43,17 @@ void main() {
 
   final mergedDevDependencies = <String, PackageRange>{};
 
-  for (final MapEntry(name: name, value: dep) in devDependencies) {
+  for (final entry in devDependencies) {
+    final name = entry.key;
+    final dep = entry.value;
+
     final existing = mergedDevDependencies[name];
     if (existing == null) {
       mergedDevDependencies[name] = dep;
     } else {
       if (existing.source != dep.source) {
-        fail('❌ Package $name has conflicting sources: ${existing.source} and ${dep.source}.');
+        fail(
+            '❌ Package $name has conflicting sources: ${existing.source} and ${dep.source}.');
       }
       mergedDevDependencies[name] = existing
           .toRef()
